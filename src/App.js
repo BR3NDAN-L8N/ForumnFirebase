@@ -35,7 +35,7 @@ function App() {
         // console.dir prints out the value in the <textarea/> where the user put their comment
         console.dir(event.target.children['new-comment-textarea'].value)
         // stick the textarea.value in an object to send to DB
-        let newComment = { textarea: event.target.children['new-comment-textarea'].value }
+        let newComment = { comment: event.target.children['new-comment-textarea'].value }
         // sending the object to DB :: .doc() lets firebase decide the id
         addDocToCollection(newComment, 'test-collection')
             .then(() => {
@@ -55,8 +55,10 @@ function App() {
 
                     console.log("property: ", document);
                     return (
-                        <li key={document.id} className="comment-card">
-                            {document.name ? document.name : document.textarea}
+                        <li key={document.id} id={document.id} className="comment-card">
+                            <p>
+                                {document.comment}
+                            </p>
                             <EditName document={document} />
 
                         </li>

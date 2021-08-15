@@ -1,4 +1,4 @@
-import { getAllDocsFromCollection } from './_QueryBoilers/GET'
+import { getAllDocsFromCollection } from './_QueryTemplates/GET'
 
 const COLLECTION_NAME = 'test-collection'
 
