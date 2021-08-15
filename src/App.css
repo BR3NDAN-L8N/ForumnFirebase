@@ -28,6 +28,26 @@
   color: #61dafb;
 }
 
+section.comments {
+    padding: 0;
+    margin: 10vh 10vw;
+}
+section.comments .list-of-comments {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+section.comments .comment-card {
+    max-width: 500px;
+    width: 80vw;
+
+    max-height: fit-content;
+    height: 100px;
+
+    border: 1px solid black;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
