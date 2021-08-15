@@ -1,4 +1,5 @@
-import DB from './firebase'
+import DB from './DatabaseQueries/firebase'
+import {addDocToCollection} from './DatabaseQueries/_QueryBoilers/ADD'
 
 import React from 'react'
 
@@ -29,25 +30,47 @@ function App() {
         fetchData()
     }, [])
 
-    return (
-        <ol>
-            {savedDocs.map((document) => {
-
-                console.log("property: ", document);
-                return (
-                    <li
-                        key={document.id}
-                    >
-                        {document.name}
-                        <EditName
-                            document={document}
-                        />
-                    </li>
-                )
+    const addNewComment = (event) => {
+        event.preventDefault()
+        // console.dir prints out the value in the <textarea/> where the user put their comment
+        console.dir(event.target.children['new-comment-textarea'].value)
+        // stick the textarea.value in an object to send to DB
+        let newComment = { textarea: event.target.children['new-comment-textarea'].value }
+        // sending the object to DB :: .doc() lets firebase decide the id
+        addDocToCollection(newComment, 'test-collection')
+            .then(() => {
+                setSavedDocs((previouslySavedDocs) => [newComment, ...previouslySavedDocs]);
             })
-            }
-        </ol>
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 
+    return (
+
+        <section className="comments">
+
+            <ol style={{ listStyle: 'none' }} className="list-of-comments">
+                {savedDocs.map((document) => {
+
+                    console.log("property: ", document);
+                    return (
+                        <li key={document.id} className="comment-card">
+                            {document.name ? document.name : document.textarea}
+                            <EditName document={document} />
+
+                        </li>
+                    )
+                })}
+            </ol>
+
+            <form onSubmit={addNewComment} className="create-new-comment">
+                <textarea name="new-comment-textarea" id="new-comment-id" cols="30" rows="10">
+
+                </textarea>
+                <input type="submit" value="SUBMIT" />
+            </form>
+        </section>
     );
 }
 
