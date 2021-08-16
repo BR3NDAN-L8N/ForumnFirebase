@@ -9,7 +9,13 @@
 
 import DB from '../firebase' // DB === DB.firestore()
 
-export async function addDocToCollection(newDocumentName, collectionName) {
-    const responseFromQuery = DB.collection(collectionName).doc().set(newDocumentName)
+/**
+ *
+ * @param {Object} newDocument
+ * @param {String} collectionName
+ * @returns An {Object} with the Documents from specified Collection. Object.docs.map(documents => {}) to loop through the Documents.
+ */
+export async function addDocumentToCollection(newDocument, collectionName) {
+    const responseFromQuery = DB.collection(collectionName).doc().set(newDocument)
     return responseFromQuery
 }
