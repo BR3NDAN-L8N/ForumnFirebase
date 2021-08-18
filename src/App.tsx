@@ -1,5 +1,5 @@
 // REACT
-import React from 'react'
+import {useState, useRef, useEffect, FC} from 'react'
 
 // DATABASE
 import {
@@ -10,18 +10,35 @@ import {
 // CSS
 import './App.css';
 
-function App() {
 
-    const [savedThreads, setSavedThreads] = React.useState([])
+interface ThreadObject {
+    id?: string,
+    title: any,
+    message: any,
+    creatorsName: string,
+    creatorsIcon: any,
+    creatorsId: string
+}
 
-    React.useEffect(() => {
+export const App: FC = () => {
+
+    const [savedThreads, setSavedThreads] = useState(Array<ThreadObject>())
+
+    const inputRef_threadTitle = useRef<HTMLInputElement>()
+    const textareaRef_threadMessage = useRef<HTMLTextAreaElement>()
+
+    useEffect(() => {
         const fetchData = async () => {
             const threads = await DB_getAllThreads()
             setSavedThreads(threads.docs.map(doc => {
                 console.log('threads from DB=> doc: ', doc.data())
                 return {
                     id: doc.id,
-                    ...doc.data()
+                    title: doc.data().title,
+                    message: doc.data().message,
+                    creatorsName: doc.data().creatorsName,
+                    creatorsIcon: doc.data().creatorsIcon,
+                    creatorsId: doc.data().creatorsId,
                 }
             }))
         }
@@ -29,20 +46,17 @@ function App() {
         fetchData()
     }, [])
 
-    const updateThreadState = (newData) => {
-        const newThreads = [...savedThreads, newData]
+    const updateThreadState = (newData: ThreadObject) => {
+        const newThreads: ThreadObject[] = [...savedThreads, newData]
         setSavedThreads(newThreads)
     }
 
     const handleNewThread = (event) => {
         event.preventDefault()
 
-        console.log('handleNewThread=> event.target.children: ')
-        console.dir(event.target.children)
-
-        const newThread = {
-            title: document.querySelector("input[name='new-thread-title']").value,
-            message: document.querySelector("textarea[name='new-thread-message']").value,
+        const newThread:ThreadObject = {
+            title: inputRef_threadTitle.current.value,
+            message: textareaRef_threadMessage.current.value,
             creatorsName: "Admin",
             creatorsIcon: "8-{)",
             creatorsId: "012AdminId210"
@@ -56,28 +70,23 @@ function App() {
 
     return (
 
-        <article className="thread-home">
+        <article className="thread-home App">
             <div className="options">
                 <form
                     onSubmit={handleNewThread}
                     className="create-new-thread">
                     <div>
-                        <label
-                            htmlFor="new-thread-title"
-                            value="Title:"
-                        ></label>
                         <input
-                            htmlFor="new-thread-title"
+                            ref={inputRef_threadTitle}
                             type="text"
                             name="new-thread-title"
                             placeholder="New Thread's Title"
                         />
                     </div>
                     <div>
-                        <label htmlFor="new-thread-message">What Do You Want To Say?</label>
                         <textarea
-                            htmlFor="new-thread-message"
-                            name="new-thread-message"
+                            ref={textareaRef_threadMessage}
+                            placeholder="What Do You Want To Say?"
                         ></textarea>
                     </div>
 
@@ -104,5 +113,3 @@ function App() {
         </article>
     );
 }
-
-export default App;

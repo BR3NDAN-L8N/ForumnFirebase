@@ -7,6 +7,7 @@
  * specific document and/or collection queries
  */
 
+/** Access the Firestore Database */
 import DB from '../firebase' // DB === DB.firestore()
 
 /**
