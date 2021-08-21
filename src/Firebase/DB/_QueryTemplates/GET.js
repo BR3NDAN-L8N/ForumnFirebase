@@ -6,7 +6,7 @@
  * specific document and/or collection queries
  */
 
-import DB from '../firebase' // DB === DB.firestore()
+import { DB } from '../../firebase' // DB === DB.firestore()
 
 /**
  * 
