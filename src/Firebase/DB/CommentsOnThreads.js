@@ -5,6 +5,5 @@
 // export const getAllThreadComments = (threadId) => {
 //     const response = getAllDocsFromCollection(COLLECTION_NAME)
 //     response.doc.map(documents => {
-
 //     })
 // }
