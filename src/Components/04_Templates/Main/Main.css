@@ -1,0 +1,19 @@
+div#root {
+    padding: 0 10vw;
+}
+div#root header {
+    height: 100px;
+    width: 100vw;
+    padding: auto;
+}
+
+div#root main {
+    width: 100%;
+    min-height: 300px;
+}
+
+div#root footer {
+    height: 100px;
+    width: 100vw;
+    padding: auto;
+}

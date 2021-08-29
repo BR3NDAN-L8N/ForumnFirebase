@@ -13,6 +13,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 // import './App.css';
 
 // COMPONENTS
+// - templates
+import Main from './Components/04_Templates/Main/Main'
 // - pages
 import {
     Dashboard,
