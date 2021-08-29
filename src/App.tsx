@@ -12,12 +12,17 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 // CSS
 // import './App.css';
 
-// Components
-// import { Threads } from './Components/03_Organisms/Threads'
+// COMPONENTS
+// - pages
+import {
+    Dashboard,
+    ForgotPassword,
+    Threads,
+    Thread
+} from './Components/05_Pages/_index'
+
 import SignUpForm from './Components/05_Pages/SignUpForm';
 import LoginForm from './Components/05_Pages/LoginForm';
-import Dashboard from './Components/05_Pages/Dashboard'
-import ForgotPassword from './Components/05_Pages/ForgotPassword'
 import UpdateProfile from './Components/05_Pages/UpdateProfile'
 import { AuthProvider } from './Contexts/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
@@ -36,6 +41,8 @@ export const App: FC = () => {
                             <Route path="/signup" component={SignUpForm} />
                             <Route path="/login" component={LoginForm} />
                             <Route path="/forgot-password" component={ForgotPassword} />
+                            <Route exact path="/threads/thread/:id" component={Thread} />
+                            <Route path="/threads" component={Threads} />
                         </Switch>
 
                     </AuthProvider>

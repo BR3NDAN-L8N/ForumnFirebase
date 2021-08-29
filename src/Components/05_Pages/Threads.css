@@ -1,0 +1,28 @@
+section.threads-list ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+
+    padding: 0;
+}
+section.threads-list ul li {
+    list-style: none;
+    
+    padding: 1em 1em 1em 1.5em;
+    
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px black;
+}
+section.threads-list ul li:hover {
+    cursor: pointer;
+    border-color: black;
+}
+section.threads-list ul li a{
+    text-decoration: none;
+    color: unset;
+}
+section.threads-list ul li h2 {
+    font-size: 1.5em;
+}
