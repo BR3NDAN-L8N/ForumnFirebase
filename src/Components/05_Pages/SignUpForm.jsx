@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import { useRef } from 'react'
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Card, Form, Button, Alert } from 'react-bootstrap'
@@ -9,18 +9,18 @@ import { useAuth } from '../../Contexts/AuthContext'
 
 // }
 
-export default function SignUpForm(): ReactElement {
+export default function SignUpForm() {
 
     const { signUp } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
-    const emailRef = useRef<HTMLInputElement | null>(null)
-    const passwordRef = useRef<HTMLInputElement | null>(null)
-    const passwordConfirmRef = useRef<HTMLInputElement | null>(null)
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
 
-    const handleSubmit = async (event: React.SyntheticEvent) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
 
         if (passwordRef.current === null || passwordConfirmRef.current === null) {

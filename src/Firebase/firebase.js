@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 // import * as firebase from "firebase/app"
 
 // If you enabled Analytics in your project, add the Firebase SDK for Analytics
-import "firebase/analytics";
+// import "firebase/analytics";
 
 // Add the Firebase products that you want to use
 import "firebase/auth";
@@ -20,8 +20,6 @@ const app = firebase.initializeApp({
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 })
-
-firebase.analytics();
 
 export const auth = app.auth()
 export const DB = app.firestore()

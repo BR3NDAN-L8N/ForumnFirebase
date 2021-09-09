@@ -1,17 +1,15 @@
 // REACT
-import React, { ReactElement, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // DATABASE
 import { DB_getThreadById } from '../../Firebase/DB/Threads'
-// INTERFACE
-import { IThreadObject } from '../../Interfaces/_index';
 
-export default function Thread(): ReactElement {
+export default function Thread() {
 
-    const [thread, setThread] = useState<IThreadObject>(Object)
+    const [thread, setThread] = useState({})
 
-    let { id }: any = useParams()
+    let { id }= useParams()
 
     useEffect(() => {
         const fetchData = async () => {

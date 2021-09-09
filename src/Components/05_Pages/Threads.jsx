@@ -1,5 +1,9 @@
 // REACT
-import React, { useState, useRef, useEffect, FC } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+
+// STYLES
+import './Threads.css'
 
 // DATABASE
 import {
@@ -7,21 +11,19 @@ import {
     DB_addNewThread
 } from '../../Firebase/DB/Threads'
 
-// INTERFACE
-import { IThreadObject } from '../../Interfaces/_index';
 
-export const Threads: FC = () => {
+export default function Threads() {
 
-    const [savedThreads, setSavedThreads] = useState(Array<IThreadObject>())
+    const [savedThreads, setSavedThreads] = useState([])
 
-    const inputRef_threadTitle = useRef<HTMLInputElement | null>(null)
-    const textareaRef_threadMessage = useRef<HTMLTextAreaElement | null>(null)
+    const inputRef_threadTitle = useRef()
+    const textareaRef_threadMessage = useRef()
 
-    useEffect(() => {
+    useEffect(() => {   
         const fetchData = async () => {
             const threads = await DB_getAllThreads()
 
-            setSavedThreads(threads.docs.map((doc: any) => {
+            setSavedThreads(threads.docs.map((doc) => {
                 console.log('threads from DB=> doc: ', doc.data())
                 return {
                     id: doc.id,
@@ -37,12 +39,12 @@ export const Threads: FC = () => {
         fetchData()
     }, [])
 
-    const updateThreadState = (newData: IThreadObject) => {
-        const newThreads: IThreadObject[] = [...savedThreads, newData]
+    const updateThreadState = (newData) => {
+        const newThreads = [...savedThreads, newData]
         setSavedThreads(newThreads)
     }
 
-    const handleNewThread = (event: React.SyntheticEvent): void => {
+    const handleNewThread = (event) => {
         event.preventDefault()  // prevent submitting form from refreshing the page
 
         if (  // if either of these are null then TS has a fit
@@ -51,7 +53,7 @@ export const Threads: FC = () => {
         ) { return }
 
         // Compile thread and it's creators data
-        const newThread: IThreadObject = {
+        const newThread = {
             title: inputRef_threadTitle.current.value,
             message: textareaRef_threadMessage.current.value,
             creatorsName: "Admin",
@@ -97,16 +99,15 @@ export const Threads: FC = () => {
                     <input type="submit" value="SUBMIT" />
                 </form>
             </div>
-            <section className="threads">
+            <section className="threads-list">
                 <ul>
                     {savedThreads.length > 0 &&
                         savedThreads.map(thread => {
                             return (
                                 <li key={thread.id}>
-                                    <hr />
-                                    <h2>{thread.title}</h2>
-                                    <h3>CREATED BY: {thread.creatorsName} {thread.creatorsIcon}</h3>
-                                    <p>{thread.message}</p>
+                                    <Link to={`/threads/thread/${thread.id}`}>
+                                        <h2>{thread.title}</h2>
+                                    </Link>
                                 </li>
                             )
                         })

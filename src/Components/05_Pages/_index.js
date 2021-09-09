@@ -3,7 +3,8 @@ import ForgotPassword from "./ForgotPassword";
 import Threads from "./Threads";
 import Thread from "./Thread";
 
-export {
+
+export const MAIN_PAGES = {
     Dashboard,
     ForgotPassword,
     Threads,
